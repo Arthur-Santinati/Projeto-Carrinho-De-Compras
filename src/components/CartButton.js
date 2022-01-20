@@ -17,19 +17,19 @@ class CartButton extends Component {
 
   render() {
     const { shouldRedirect } = this.state;
-    if (shouldRedirect) {
-      return <Redirect to="/cart" />;
-    }
-    return (
-      <button
-        type="button"
-        data-testid="shopping-cart-button"
-        id="shopping-cart-button"
-        onClick={ this.handleClick }
-      >
-        Carrinho
-      </button>
-    );
+
+    const retorno = shouldRedirect ? <Redirect to="/cart" />
+      : (
+        <button
+          className="elementList"
+          type="button"
+          data-testid="shopping-cart-button"
+          id="shopping-cart-button"
+          onClick={ this.handleClick }
+        >
+          Carrinho
+        </button>);
+    return retorno;
   }
 }
 export default CartButton;

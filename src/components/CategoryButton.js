@@ -6,16 +6,18 @@ class CategoryButton extends Component {
   // }
 
   render() {
-    const { categoryName } = this.props;
+    const { categoryName, categoryId, clicou } = this.props;
     return (
-      <button
-        type="button"
-        data-testid="category"
-        className="category"
-        // onClick={ this.handleClick }
-      >
-        {categoryName}
-      </button>
+      <label htmlFor={ categoryId } data-testid="category">
+        { categoryName }
+        <input
+          type="radio"
+          id={ categoryId }
+          name="category"
+          value={ categoryName }
+          onClick={ clicou }
+        />
+      </label>
     );
   }
 }
