@@ -5,9 +5,9 @@ class CardProducts extends Component {
   render() {
     const { productName, productImage, productPrice } = this.props;
     return (
-      <div>
+      <div data-testid="product">
         <h1>{ productName }</h1>
-        <img src={ productImage } alt={ productPrice } />
+        <img src={ productImage } alt={ productName } />
         <span>{ productPrice }</span>
       </div>
     );

@@ -8,7 +8,7 @@ class CategoryButton extends Component {
   render() {
     const { categoryName, categoryId, clicou } = this.props;
     return (
-      <label htmlFor={ categoryId }>
+      <label htmlFor={ categoryId } data-testid="category">
         { categoryName }
         <input
           type="radio"

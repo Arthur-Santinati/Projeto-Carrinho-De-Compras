@@ -4,18 +4,17 @@ import CategoryButton from '../components/CategoryButton';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import CardProducts from '../components/CardProducts';
 
-// const x = await getCategories();
-
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       categoryList: [],
       productList: [],
-      idCategory: '',
-      // product: '',
+      filterText: '',
+      selectedCategoryId: '',
     };
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
+    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
   componentDidMount() {
@@ -26,25 +25,28 @@ class Home extends Component {
     });
   }
 
-  componentWillUnmount() {
-    const { idCategory } = this.state;
-    console.log(idCategory);
-    getProductsFromCategoryAndQuery(idCategory)
-      .then((info) => {
-        console.log(info);
-        this.setState({
-          productList: [...info],
-        });
-      });
+  handleChangeCategory({ target }) {
+    const { id } = target;
+    this.carregaElementos(id);
+    this.setState({
+      selectedCategoryId: id,
+    });
   }
 
-  handleChangeCategory(event) {
-    const { target } = event;
-    const { id } = target;
+  handleChangeInput({ target }) {
+    const { value } = target;
     this.setState({
-      idCategory: id,
+      filterText: value,
     });
-    this.componentWillUnmount();
+  }
+
+  carregaElementos(id, produto) {
+    getProductsFromCategoryAndQuery(id, produto)
+      .then((info) => {
+        this.setState({
+          productList: [...info.results],
+        });
+      });
   }
 
   render() {
@@ -52,12 +54,27 @@ class Home extends Component {
       <span data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </span>);
-    const { categoryList, productList } = this.state;
+    const { categoryList, productList, filterText, selectedCategoryId } = this.state;
     return (
       <div>
         <section>
-          <input type="text" id="pesquisa" name="pesquisa" />
-          { productList ? productList.map((products) => (
+          <input
+            data-testid="query-input"
+            type="text"
+            id="pesquisa"
+            name="filterText"
+            value={ filterText }
+            onChange={ this.handleChangeInput }
+          />
+          <button
+            type="button"
+            data-testid="query-button"
+            id="query-button"
+            onClick={ () => this.carregaElementos(selectedCategoryId, filterText) }
+          >
+            Pesquisar
+          </button>
+          { productList.length > 0 ? productList.map((products) => (
             <CardProducts
               key={ products.id }
               productName={ products.title }

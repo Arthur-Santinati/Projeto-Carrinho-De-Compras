@@ -25,7 +25,7 @@ class CartButton extends Component {
           type="button"
           data-testid="shopping-cart-button"
           id="shopping-cart-button"
-          onChange={ this.handleClick }
+          onClick={ this.handleClick }
         >
           Carrinho
         </button>);
