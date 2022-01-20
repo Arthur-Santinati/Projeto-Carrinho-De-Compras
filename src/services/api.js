@@ -10,13 +10,15 @@ export async function getCategories() {
   }
 }
 
-export async function getProductsFromCategoryAndQuery(categoryId, query) {
-  // Implementado por João e Thomaz
-  const url = `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}=${query}`;
+export async function getProductsFromCategoryAndQuery(categoryId, query = '') {
+  // Implementado por João e Thomaz}
+
+  const url = !query ? `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}`
+    : `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}=${query}`;
   try {
     const retorno = await fetch(url);
     const resposta = await retorno.json();
-    return resposta;
+    return resposta.results;
   } catch (error) {
     return error;
   }
