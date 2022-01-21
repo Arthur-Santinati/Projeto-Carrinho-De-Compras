@@ -65,7 +65,8 @@ class Checkout extends Component {
       || city === ''
       || state === ''
     ) {
-      alert('Preencha todos os campos');
+      const alert = 'Preencha todos os campos';
+      alert(alert);
     } else {
       this.setState({
         fullName: '',
