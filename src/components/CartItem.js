@@ -9,7 +9,10 @@ class CardItem extends Component {
         <div>
           <h4 data-testid="shopping-cart-product-name">{productName}</h4>
           <br />
-          <span>{productPrice}</span>
+          <span>
+            Preço:
+            {productPrice}
+          </span>
           <br />
         </div>
       </div>

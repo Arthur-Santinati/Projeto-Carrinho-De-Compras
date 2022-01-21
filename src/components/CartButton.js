@@ -28,7 +28,7 @@ class CartButton extends Component {
             id="shopping-cart-button"
             onClick={ this.handleClick }
           >
-            Carrinho
+            <span>🛒</span>
           </button>
         </div>);
     return retorno;

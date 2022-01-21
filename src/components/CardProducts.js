@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import AddCartButton from './AddCartButton';
 
 class CardProducts extends Component {
   render() {
-    const { productName, productImage, productPrice, productId, addCart } = this.props;
+    const { productName, productImage, productPrice, productId } = this.props;
     return (
       <div>
         <Link
@@ -26,15 +27,11 @@ class CardProducts extends Component {
             <br />
           </div>
         </Link>
-        <button
-          data-testid="product-add-to-cart"
-          type="button"
-          id="adicionaCarrinho"
-          name={ productName }
-          onClick={ () => addCart(productName, productPrice) }
-        >
-          Adicionar o carrinho
-        </button>
+        <AddCartButton
+          productName={ productName }
+          productPrice={ Number(productPrice) }
+          productId="product-add-to-cart"
+        />
       </div>
     );
   }

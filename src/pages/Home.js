@@ -15,24 +15,14 @@ class Home extends Component {
     };
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
-    this.handleAddCart = this.handleAddCart.bind(this);
   }
 
   componentDidMount() {
-    localStorage.setItem('cart', JSON.stringify([]));
     getCategories().then((info) => {
       this.setState({
         categoryList: [...info],
       });
     });
-  }
-
-  handleAddCart(name, price) {
-    let cart = JSON.parse(localStorage.getItem('cart'));
-    cart = [...cart, { name, price }];
-    localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('count', JSON.stringify(cart.length));
-    console.log(JSON.parse(localStorage.getItem('count')));
   }
 
   handleChangeCategory({ target }) {
@@ -66,7 +56,8 @@ class Home extends Component {
       </span>);
     const {
       categoryList,
-      productList, filterText,
+      productList,
+      filterText,
       selectedCategoryId } = this.state;
 
     return (
@@ -79,6 +70,7 @@ class Home extends Component {
             name="filterText"
             value={ filterText }
             onChange={ this.handleChangeInput }
+            placeholder="Nome do produto"
           />
           <button
             type="button"
@@ -86,17 +78,22 @@ class Home extends Component {
             id="query-button"
             onClick={ () => this.carregaElementos(selectedCategoryId, filterText) }
           >
-            Pesquisar
+            <span>Pesquisar 🔎</span>
           </button>
           { productList.length > 0 ? productList.map((products) => (
-            <CardProducts
-              key={ products.id }
-              productName={ products.title }
-              productImage={ products.thumbnail }
-              productPrice={ products.price }
-              productId={ products.id }
-              addCart={ this.handleAddCart }
-            />
+            <div key={ products.id }>
+              <CardProducts
+                productName={ products.title }
+                productImage={ products.thumbnail }
+                productPrice={ products.price }
+                productId={ products.id }
+              />
+              {/* <AddCartButton
+                productName={ products.title }
+                productPrice={ Number(products.price) }
+                productId="product-add-to-cart"
+              /> */}
+            </div>
           )) : message }
         </section>
         <aside className="navBar">

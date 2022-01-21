@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
-import CartButton from '../components/CartButton';
+import AddCartButton from '../components/AddCartButton';
+import AvaliationForm from '../components/AvaliationForm';
 import { getProductApi } from '../services/api';
+import CartButton from '../components/CartButton';
 
 class ProductPage extends Component {
   constructor() {
@@ -30,7 +32,9 @@ class ProductPage extends Component {
 
   render() {
     const { name, image, price, attributes } = this.state;
-
+    const { location: { pathname } } = this.props;
+    const id = pathname.split('/')[2];
+    console.log(id);
     return (
       <div>
         <h1 data-testid="product-detail-name">
@@ -53,7 +57,19 @@ class ProductPage extends Component {
             </li>))}
         </ul>
         <Link to="/">Voltar para Home</Link>
+        <br />
+        <br />
+        <AddCartButton
+          productName={ name }
+          productPrice={ Number(price) }
+          productId="product-detail-add-to-cart"
+        />
+        <br />
+        <br />
         <CartButton />
+        <AvaliationForm
+          id={ id }
+        />
       </div>
     );
   }
