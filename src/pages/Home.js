@@ -57,7 +57,7 @@ class Home extends Component {
     const { categoryList, productList, filterText, selectedCategoryId } = this.state;
     return (
       <div>
-        <section>
+        <section className="products-section">
           <input
             data-testid="query-input"
             type="text"
@@ -80,11 +80,12 @@ class Home extends Component {
               productName={ products.title }
               productImage={ products.thumbnail }
               productPrice={ products.price }
+              productId={ products.id }
             />
           )) : message }
-          <CartButton />
         </section>
         <aside className="navBar">
+          <CartButton />
           { categoryList.map((category) => (
             <CategoryButton
               categoryName={ category.name }
