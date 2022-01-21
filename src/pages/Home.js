@@ -15,14 +15,24 @@ class Home extends Component {
     };
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.handleAddCart = this.handleAddCart.bind(this);
   }
 
   componentDidMount() {
+    localStorage.setItem('cart', JSON.stringify([]));
     getCategories().then((info) => {
       this.setState({
         categoryList: [...info],
       });
     });
+  }
+
+  handleAddCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    cart = [...cart, { name, price }];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('count', JSON.stringify(cart.length));
+    console.log(JSON.parse(localStorage.getItem('count')));
   }
 
   handleChangeCategory({ target }) {
@@ -54,7 +64,11 @@ class Home extends Component {
       <span data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </span>);
-    const { categoryList, productList, filterText, selectedCategoryId } = this.state;
+    const {
+      categoryList,
+      productList, filterText,
+      selectedCategoryId } = this.state;
+
     return (
       <div>
         <section className="products-section">
@@ -81,6 +95,7 @@ class Home extends Component {
               productImage={ products.thumbnail }
               productPrice={ products.price }
               productId={ products.id }
+              addCart={ this.handleAddCart }
             />
           )) : message }
         </section>

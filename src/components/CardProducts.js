@@ -4,31 +4,38 @@ import { Link } from 'react-router-dom';
 
 class CardProducts extends Component {
   render() {
-    const { productName, productImage, productPrice, productId } = this.props;
+    const { productName, productImage, productPrice, productId, addCart } = this.props;
     return (
-      <Link
-        to={ `/productPage/${productId}` }
-        data-testid="product-detail-link"
-      >
-        <div
-          data-testid="product"
-          id={ productId }
-          className="product"
+      <div>
+        <Link
+          to={ `/productPage/${productId}` }
+          data-testid="product-detail-link"
         >
-          <h4>{ productName }</h4>
-          <img
-            src={ productImage }
-            alt={ productName }
-            className="imgProduct"
-          />
-          <br />
-          <span>{ productPrice }</span>
-          <br />
-          {/* <Link to="/cart" data-testid="product-add-to-cart">
-            <span>carrinho</span>
-          </Link> */}
-        </div>
-      </Link>
+          <div
+            data-testid="product"
+            className="product"
+          >
+            <h4>{productName}</h4>
+            <img
+              src={ productImage }
+              alt={ productName }
+              className="imgProduct"
+            />
+            <br />
+            <span>{productPrice}</span>
+            <br />
+          </div>
+        </Link>
+        <button
+          data-testid="product-add-to-cart"
+          type="button"
+          id="adicionaCarrinho"
+          name={ productName }
+          onClick={ () => addCart(productName, productPrice) }
+        >
+          Adicionar o carrinho
+        </button>
+      </div>
     );
   }
 }
