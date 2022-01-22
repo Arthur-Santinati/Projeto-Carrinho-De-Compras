@@ -13,7 +13,7 @@ class ShoppingCart extends Component {
       shouldRedirect: false,
     };
   }
-  
+
   handleClick = () => {
     this.setState({
       shouldRedirect: true,
@@ -74,14 +74,14 @@ class ShoppingCart extends Component {
     const { carrinho, soma, shouldRedirect } = this.state;
     if (shouldRedirect) {
       return <Redirect to="/checkout" />;
-    };
-    
+    }
+
     return (
       <div>
         <div className="shopping-cart">
-          <span data-testid="shopping-cart-empty-message">
+          {/* <span data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
-          </span>
+          </span> */}
           <button
             type="button"
             data-testid="checkout-products"
@@ -89,7 +89,7 @@ class ShoppingCart extends Component {
           >
             Finalizar Compra
           </button>
-      </div>
+        </div>
         {carrinho ? carrinho.map((cartItem, index) => (
           <div key={ index }>
             <CartItem
