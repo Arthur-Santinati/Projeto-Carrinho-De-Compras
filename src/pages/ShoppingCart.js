@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import CartItem from '../components/CartItem';
 
 class ShoppingCart extends Component {
@@ -9,7 +10,14 @@ class ShoppingCart extends Component {
     this.state = {
       carrinho: cart,
       soma: sum,
+      shouldRedirect: false,
     };
+  }
+
+  handleClick = () => {
+    this.setState({
+      shouldRedirect: true,
+    });
   }
 
   handleCartIncrease = (name) => {
@@ -63,9 +71,25 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { carrinho, soma } = this.state;
+    const { carrinho, soma, shouldRedirect } = this.state;
+    if (shouldRedirect) {
+      return <Redirect to="/checkout" />;
+    }
+
     return (
       <div>
+        <div className="shopping-cart">
+          {/* <span data-testid="shopping-cart-empty-message">
+            Seu carrinho está vazio
+          </span> */}
+          <button
+            type="button"
+            data-testid="checkout-products"
+            onClick={ this.handleClick }
+          >
+            Finalizar Compra
+          </button>
+        </div>
         {carrinho ? carrinho.map((cartItem, index) => (
           <div key={ index }>
             <CartItem
